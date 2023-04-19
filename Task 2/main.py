@@ -51,6 +51,11 @@ def main():
     age_by_gender = util.discriminate(hld_age, ff_age, ff_gend, genders)
     age_by_race = util.discriminate(hld_age, ff_age, ff_race, races)
     
+    age_diff_g = util.age_diff(hld_age, ff_age, ff_gend)
+    age_diff_g.plot(kind='bar')
+    age_diff_r = util.age_diff(hld_age, ff_age, ff_race)
+    age_diff_r.plot(kind='bar')
+    
     retu_gend.plot(kind='bar', stacked=True, title='Gender Accuracy')
     print(util.findacc(retu_gend))
     

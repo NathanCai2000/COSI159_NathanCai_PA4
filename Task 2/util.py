@@ -69,7 +69,30 @@ def sortit_age(data, true, sets):
             }
     retu = pd.DataFrame(retu).set_index('Class')
     return retu
+
+def age_diff(data, true, base):
+    tmp = []
+    tar = []
+    #[fail, pass, miss]
+    for a in range(len(data)):
+        hld = ages(true[a])
+        if data[a] != 'nan':
+            c = data[a] >= hld[0] and data[a] <= hld[1]
+            if not c:
+                b = max(hld[0] - data[a], data[a] - hld[0])
+            else:
+                b = 0
+        tmp.append(b)
+        tar.append(base[a])
+    retu = {'Class' : tar,
+            'Diff' : tmp}
+    retu = pd.DataFrame(retu).set_index('Class')
+    retu = retu.groupby('Class').mean()
+    print(retu)
+    return retu
+        
     
+
 def discriminate(data, true, s, sets):
     tmp = np.zeros([len(sets), 3])
     #[fail, pass, miss]
